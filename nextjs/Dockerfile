@@ -11,13 +11,15 @@ RUN npm install --global pm2
 COPY ./app/package*.json ./
 
 # Install dependencies
-RUN npm install --production
+#RUN npm install --production
+RUN yarn --production
+
 
 # Copy all files
 COPY ./app/ ./
 
 # Build app
-RUN npm run build
+RUN yarn run build
 
 # Expose the listening port
 EXPOSE 3000
