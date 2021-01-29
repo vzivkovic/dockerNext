@@ -1,5 +1,9 @@
 FROM node:alpine
 
+#ENV DIR 'landing'
+ENV TEST_ENV=something
+RUN echo $TEST_ENV
+
 # Set working directory
 WORKDIR /var/www/html/client
 
@@ -8,7 +12,8 @@ RUN npm install --global pm2
 
 # Copy "package.json" and "package-lock.json" before other files
 # Utilise Docker cache to save re-installing dependencies if unchanged
-COPY ./app/package*.json ./
+COPY ./landing/package*.json ./
+COPY ./landing/yarn.lock ./
 
 # Install dependencies
 #RUN npm install --production
@@ -16,7 +21,7 @@ RUN yarn --production
 
 
 # Copy all files
-COPY ./app/ ./
+COPY ./landing/ ./
 
 # Build app
 RUN yarn run build
